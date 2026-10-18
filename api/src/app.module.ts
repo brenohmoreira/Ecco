@@ -4,11 +4,15 @@ import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter.js';
 import { validateEnv } from './config/env.validation.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { DatabaseModule } from './database/database.module.js';
+import { AuthModule } from './modules/auth/auth.module.js';
 
 @Module({
         imports: [
                 ConfigModule.forRoot({ isGlobal: true, cache: true, validate: validateEnv }),
+                DatabaseModule,
                 HealthModule,
+                AuthModule
         ],
         providers: [
                 {

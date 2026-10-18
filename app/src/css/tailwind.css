@@ -1,20 +1,10 @@
-/*
- * Tailwind CSS v4 com prioridade máxima sobre o Quasar.
- *
- * - O preflight (reset) do Tailwind NÃO é importado para não quebrar os
- *   componentes do Quasar, que já trazem seu próprio reset.
- * - As utilities são importadas com a flag `important`, então toda classe
- *   do Tailwind (ex.: `bg-red-500`, `p-4`) vence os estilos do Quasar.
- */
 @layer theme, base, components, utilities;
 
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities) important;
 
-/* Garante que o Tailwind encontre as classes usadas nos componentes */
 @source '../';
 
-/* Cores do Quasar (definidas em quasar.variables.scss) como utilities do Tailwind: bg-primary, text-accent... */
 @theme {
         --font-sans: 'Poppins', sans-serif;
 
@@ -27,5 +17,4 @@
         --color-warning: var(--q-warning);
 }
 
-/* Dark mode do Tailwind sincronizado com o Dark plugin do Quasar */
 @custom-variant dark (&:where(.body--dark, .body--dark *));

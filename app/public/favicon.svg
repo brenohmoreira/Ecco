@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1976d2"/><text x="32" y="44" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle" fill="#fff">E</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="78 78 356 356" role="img" aria-label="Ecco">
+        <style>
+                .mark { color: #5c5052; }
+                @media (prefers-color-scheme: dark) {
+                        .mark { color: #f7f1ec; }
+                }
+        </style>
+        <g class="mark">
+                <g fill="none" stroke="currentColor" stroke-width="36" stroke-linecap="round">
+                        <path d="M335.7 193.2 A82 82 0 1 0 335.7 318.8" />
+                        <path d="M379.4 141.1 A150 150 0 1 0 379.4 370.9" opacity="0.5" />
+                </g>
+                <circle cx="283" cy="256" r="32" fill="currentColor" />
+        </g>
+</svg>
