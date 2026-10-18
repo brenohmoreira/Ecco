@@ -1,0 +1,10 @@
+/*
+ * Poppins (self-hosted via @fontsource). Cada arquivo traz os subsets com
+ * unicode-range, então o navegador só baixa o que a página realmente usa.
+ */
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/400-italic.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';

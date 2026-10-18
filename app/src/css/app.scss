@@ -1,0 +1,15 @@
+// Estilos globais do app (Quasar / SCSS)
+html,
+body,
+#q-app {
+        min-height: 100%;
+}
+
+// Campos de formulário não herdam a fonte do body por padrão no navegador
+button,
+input,
+optgroup,
+select,
+textarea {
+        font-family: inherit;
+}
