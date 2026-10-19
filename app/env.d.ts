@@ -1,3 +1,3 @@
 interface ImportMetaEnv {
-        readonly API_URL?: string;
+        readonly QCLI_API_URL?: string;
 }

@@ -1,5 +1,5 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsInt, IsString, Max, Min, validateSync } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsString, Max, Min, validateSync } from 'class-validator';
 
 enum Environment {
         Development = 'development',
@@ -7,7 +7,6 @@ enum Environment {
         Test = 'test',
 }
 
-// Variáveis de ambiente aceitas pela API. Os valores atribuídos são os defaults.
 export class Env {
         @IsEnum(Environment)
         NODE_ENV: Environment = Environment.Development;
@@ -19,6 +18,14 @@ export class Env {
 
         @IsString()
         CORS_ORIGIN: string = 'http://localhost:9000';
+
+        @IsString()
+        @IsNotEmpty()
+        JWT_SECRET: string;
+
+        @IsInt()
+        @Min(60)
+        JWT_EXPIRES_IN: number = 86400;
 }
 
 export function validateEnv(config: Record<string, unknown>): Env {

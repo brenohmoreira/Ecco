@@ -16,6 +16,7 @@ const routes: RouteRecordRaw[] = [
         {
                 path: '/login',
                 component: () => import('@/layouts/AuthLayout.vue'),
+                meta: { publica: true },
                 children: [
                         {
                                 path: '',
@@ -24,8 +25,6 @@ const routes: RouteRecordRaw[] = [
                         },
                 ],
         },
-
-        // Sempre deixe esta rota por último
         {
                 path: '/:catchAll(.*)*',
                 component: () => import('@/pages/ErrorNotFound.vue'),

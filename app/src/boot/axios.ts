@@ -1,4 +1,5 @@
 import { defineBoot } from '#q-app';
+import { useAutenticacaoStore } from '@/stores/autenticacao';
 import axios, { type AxiosInstance } from 'axios';
 import { Notify } from 'quasar';
 
@@ -10,39 +11,42 @@ declare module 'vue' {
 }
 
 const api = axios.create({
-        baseURL: import.meta.env.API_URL ?? '/api',
+        baseURL: import.meta.env.QCLI_API_URL ?? '/api',
         timeout: 15000,
+        withCredentials: true,
         headers: { 'Content-Type': 'application/json' },
 });
 
-api.interceptors.request.use((config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-                config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-});
+export default defineBoot(({ app, router, store }) => {
+        api.interceptors.response.use(
+                (response) => response,
+                (error: unknown) => {
+                        if (axios.isAxiosError(error)) {
+                                const status = error.response?.status;
+                                const url = error.config?.url;
 
-api.interceptors.response.use(
-        (response) => response,
-        (error: unknown) => {
-                if (axios.isAxiosError(error)) {
-                        const data = error.response?.data as { message?: string } | undefined;
-                        Notify.create({
-                                type: 'negative',
-                                message:
-                                        data?.message ??
-                                        error.message ??
-                                        'Erro inesperado na requisição',
-                        });
-                }
-                return Promise.reject(error instanceof Error ? error : new Error(String(error)));
-        },
-);
+                                if (status === 401 && url === '/autenticacao/eu') 
+                                        return Promise.reject(error);
 
-export default defineBoot(({ app }) => {
+                                if (status === 401 && url !== '/autenticacao') {
+                                        useAutenticacaoStore(store).limpar();
+                                        void router.push({ name: 'login' });
+                                }
+
+                                const data = error.response?.data as { message?: string } | undefined;
+
+                                Notify.create({
+                                        type: 'negative',
+                                        message: data?.message ?? error.message ?? 'Erro inesperado na requisição',
+                                });
+                        }
+
+                        return Promise.reject(error instanceof Error ? error : new Error(String(error)));
+                },
+        );
+
         app.config.globalProperties.$axios = axios;
         app.config.globalProperties.$api = api;
-});
+})
 
 export { api };
