@@ -24,7 +24,7 @@ export const useAutenticacaoStore = defineStore('autenticacao', () => {
         }
 
         async function entrar(email: string, senha: string) {
-                usuario.value = await http.post<Usuario>('autenticacao', { email, senha });
+                usuario.value = await http.post<Usuario>('/autenticacao', { email, senha });
         }
 
         async function desconectar() {

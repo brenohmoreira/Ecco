@@ -14,15 +14,20 @@ const routes: RouteRecordRaw[] = [
         },
 
         {
-                path: '/login',
+                path: '/autenticacao',
                 component: () => import('@/layouts/AuthLayout.vue'),
                 meta: { publica: true },
                 children: [
                         {
-                                path: '',
-                                name: 'login',
+                                path: 'conectar',
+                                name: 'conectar',
                                 component: () => import('@/pages/LoginPage.vue'),
                         },
+                        {
+                                path: 'cadastrar',
+                                name: 'cadastrar',
+                                component: () => import('@/pages/RegistroPage.vue')
+                        }
                 ],
         },
         {

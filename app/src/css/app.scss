@@ -14,7 +14,26 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
         transition: background-color 600000s 0s, color 600000s 0s;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill::first-line {
+        font-family: $typography-font-family !important;
+        font-size: 12px !important;
+}
+
 .body--dark {
         --ecco-autofill-bg: #{$dark-page};
         --ecco-autofill-text: #fff;
+}
+
+// O .q-notification define 14px e vem depois do .text-caption no CSS do Quasar
+.q-notification.text-caption {
+        font-size: 0.75rem;
+
+        .q-notification__icon {
+                font-size: 18px;
+        }
+
+        .q-notification__icon--additional {
+                margin-right: 10px;
+        }
 }

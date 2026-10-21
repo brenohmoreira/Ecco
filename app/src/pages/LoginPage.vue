@@ -25,9 +25,9 @@
                                 <q-btn :loading="carregando" type="submit" label="Entrar" color="primary" text-color="white" unelevated no-caps class="mt-4 h-10 w-full py-1.5 text-caption font-medium"/>
                         </q-form>
 
-                        <p class="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">
+                        <p class="mt-4 text-center text-xs text-gray-500">
                                 Não tem uma conta?
-                                <router-link to="/login" class="text-primary font-medium no-underline hover:underline dark:text-white">
+                                <router-link :to="{ name: 'cadastrar' }" class="text-primary font-medium no-underline hover:underline dark:text-white">
                                         Criar conta
                                 </router-link>
                         </p>

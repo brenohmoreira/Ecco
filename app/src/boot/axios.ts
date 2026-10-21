@@ -30,7 +30,7 @@ export default defineBoot(({ app, router, store }) => {
 
                                 if (status === 401 && url !== '/autenticacao') {
                                         useAutenticacaoStore(store).limpar();
-                                        void router.push({ name: 'login' });
+                                        void router.push({ name: 'conectar' });
                                 }
 
                                 const data = error.response?.data as { message?: string } | undefined;

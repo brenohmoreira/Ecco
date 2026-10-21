@@ -20,9 +20,9 @@ export default defineRouter(function ({ store }) {
                 const publica = to.matched.some((r) => r.meta.publica)
 
                 if (!publica && !autenticacao.autenticado)
-                        return { name: 'login', query: { redirect: to.fullPath } }
+                        return { name: 'conectar', query: { redirect: to.fullPath } }
 
-                if (to.name === 'login' && autenticacao.autenticado)
+                if (publica && autenticacao.autenticado)
                         return { name: 'home' }
         })
 
