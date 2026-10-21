@@ -29,13 +29,19 @@ export class AuthService {
                 }
         }
 
+        async usuarioDisponivel(usuario: string): Promise<boolean> {
+                return !(await this.authRepository.usuarioExiste(usuario.trim().toLowerCase()));
+        }
+
         async cadastrar(dto: CadastroDTO): Promise<UsuarioCriado> {
                 const email = dto.email.trim().toLowerCase();
+                const usuario = dto.usuario.trim().toLowerCase();
 
                 if (await this.authRepository.pesquisaPorEmail(email)) throw new ConflictException("E-mail já cadastrado");
+                if (await this.authRepository.usuarioExiste(usuario)) throw new ConflictException("Usuário já está em uso");
 
                 const senha = await gerarHashSenha(dto.senha);
 
-                return this.authRepository.criar({ usuario: dto.usuario.trim(), email, senha });
+                return this.authRepository.criar({ usuario, nome: dto.nome.trim(), email, senha });
         }
 }

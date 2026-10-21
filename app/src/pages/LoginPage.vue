@@ -11,12 +11,12 @@
 
                         <q-form class="flex flex-col mt-5" @submit="aoClicar">
                                 <label for="login-email" class="mb-1 text-[11px] font-medium text-gray-600 dark:text-gray-300"> E-mail </label>
-                                <q-input v-model="email" for="login-email" type="email" outlined dense input-class="text-[12px]"/>
+                                <q-input v-model="email" for="login-email" autofocus type="email" maxlength="254" outlined dense input-class="text-[12px]"/>
 
                                 <label for="login-password" class="text-[11px] mt-2 font-medium text-gray-600 dark:text-gray-300"> Senha </label>
-                                <q-input v-model="senha" for="login-password" :type="mostrarSenha ? 'text' : 'password'" autocomplete="current-password" outlined dense input-class="text-[12px]">
+                                <q-input v-model="senha" for="login-password" maxlength="128" :type="mostrarSenha ? 'text' : 'password'" autocomplete="current-password" outlined dense input-class="text-[12px]">
                                         <template #append>
-                                                <q-btn flat round dense size="xs" class="text-gray-400" :icon="mostrarSenha ? 'visibility_off' : 'visibility'" :aria-label="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'" @click="mostrarSenha = !mostrarSenha"/>
+                                                <q-btn flat round dense size="xs" tabindex="-1" class="text-gray-400" :icon="mostrarSenha ? 'visibility_off' : 'visibility'" :aria-label="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'" @click="mostrarSenha = !mostrarSenha"/>
                                         </template>
                                 </q-input>
 

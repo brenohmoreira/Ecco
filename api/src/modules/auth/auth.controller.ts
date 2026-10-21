@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { CadastroDTO } from "./dto/cadastro.dto.js";
 import { LoginDTO } from "./dto/login.dto.js";
+import { UsuarioDisponivelDTO } from "./dto/usuario-disponivel.dto.js";
 import { AuthService } from "./auth.service.js";
 import { ConfigService } from "@nestjs/config";
 import { Env } from "../../config/env.validation.js";
@@ -35,6 +36,11 @@ export class AuthController {
         @Post('cadastro')
         async cadastro(@Body() dto: CadastroDTO) {
                 return this.authService.cadastrar(dto);
+        }
+
+        @Get('usuario-disponivel')
+        async usuarioDisponivel(@Query() dto: UsuarioDisponivelDTO) {
+                return { disponivel: await this.authService.usuarioDisponivel(dto.usuario) };
         }
         
         @Get('eu')
