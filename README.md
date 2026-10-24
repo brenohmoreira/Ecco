@@ -1,2 +1,2 @@
 # Ecco
-Rede social para aprendizado de design patterns e aplicações arquiteturais.
+Sistema de agendamento para aprendizado de design patterns e aplicações arquiteturais.
