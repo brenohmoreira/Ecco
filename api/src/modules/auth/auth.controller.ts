@@ -46,8 +46,8 @@ export class AuthController {
         @Get('eu')
         @UseGuards(JwtAuthGuard)
         eu(@Req() req: Request) {
-                const { sub, usuario, email } = req.user!;
-                return { id: sub, usuario, email };
+                const { sub, usuario, email, nome } = req.user!;
+                return { id: sub, usuario, email, nome };
         }
 
         @Post('desconectar')

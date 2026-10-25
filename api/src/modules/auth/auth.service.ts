@@ -20,12 +20,12 @@ export class AuthService {
 
                 if (!valido) throw new UnauthorizedException("E-mail ou senha inválidos")
 
-                const payload: JwtPayload = { sub: usuario.id, usuario: usuario.usuario, email: usuario.email };
+                const payload: JwtPayload = { sub: usuario.id, usuario: usuario.usuario, nome: usuario.nome, email: usuario.email };
                 const token = await this.jwtService.signAsync(payload);
 
                 return {
                         token,
-                        usuario: { id: usuario.id, usuario: usuario.usuario, email: usuario.email }
+                        usuario: { id: usuario.id, usuario: usuario.usuario, nome: usuario.nome, email: usuario.email }
                 }
         }
 

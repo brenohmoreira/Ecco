@@ -25,10 +25,15 @@ export default defineBoot(({ app, router, store }) => {
                                 const status = error.response?.status;
                                 const url = error.config?.url;
 
-                                if (status === 401 && url === '/autenticacao/eu') 
+                                console.log(error)
+
+                                if (status === 401 && url === '/autenticacao/eu') {
+                                        Notify.create({ type: 'negative', message: 'Conecte-se para prosseguir' })
                                         return Promise.reject(error);
+                                }
 
                                 if (status === 401 && url !== '/autenticacao') {
+                                        Notify.create({ type: 'negative', message: 'Conecte-se para prosseguir' })
                                         useAutenticacaoStore(store).limpar();
                                         void router.push({ name: 'conectar' });
                                 }

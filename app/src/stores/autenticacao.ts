@@ -5,6 +5,7 @@ import { computed, ref } from "vue";
 export type Usuario = {
         id: number;
         usuario: string;
+        nome: string;
         email: string;
 }
 

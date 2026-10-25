@@ -11,10 +11,10 @@
 
                         <q-form class="flex flex-col mt-5" @submit="aoClicar">
                                 <label for="cadastro-nome" class="text-[11px] mb-1 font-medium text-gray-600"> Nome </label>
-                                <q-input v-model="nome" for="cadastro-nome" autofocus type="text" maxlength="100" autocomplete="name" outlined dense input-class="text-[12px]"/>
+                                <q-input v-model="nome" tabindex="1" for="cadastro-nome" autofocus type="text" maxlength="100" autocomplete="name" outlined dense input-class="text-[12px]"/>
 
                                 <label for="cadastro-usuario" class="text-[11px] mb-1 mt-2 font-medium text-gray-600"> Usuário </label>
-                                <q-input v-model="usuario" for="cadastro-usuario" type="text" prefix="@" maxlength="40" autocomplete="username" outlined dense input-class="text-[12px]" @keydown.enter.prevent="verificarUsuario">
+                                <q-input v-model="usuario" tabindex="2" for="cadastro-usuario" type="text" prefix="@" maxlength="40" autocomplete="username" outlined dense input-class="text-[12px]" @keydown.enter.prevent="verificarUsuario">
                                         <template #append>
                                                 <q-btn flat round dense size="xs" tabindex="-1" :loading="verificando" :class="corDisponibilidade" :icon="iconeDisponibilidade" aria-label="Verificar disponibilidade do usuário" @click="verificarUsuario"/>
                                         </template>
@@ -24,28 +24,28 @@
                                 </span>
 
                                 <label for="cadastro-email" class="mb-1 mt-2 text-[11px] font-medium text-gray-600"> E-mail </label>
-                                <q-input v-model="email" for="cadastro-email" type="email" maxlength="254" outlined dense input-class="text-[12px]"/>
+                                <q-input v-model="email" tabindex="3" for="cadastro-email" type="email" maxlength="254" outlined dense input-class="text-[12px]"/>
 
                                 <label for="cadastro-password" class="text-[11px] mt-2 font-medium text-gray-600"> Senha </label>
-                                <q-input v-model="senha" for="cadastro-password" maxlength="128" :type="mostrarSenha ? 'text' : 'password'" autocomplete="current-password" outlined dense input-class="text-[12px]">
+                                <q-input v-model="senha" tabindex="4" for="cadastro-password" maxlength="128" :type="mostrarSenha ? 'text' : 'password'" autocomplete="current-password" outlined dense input-class="text-[12px]">
                                         <template #append>
                                                 <q-btn flat round dense size="xs" tabindex="-1" class="text-gray-400" :icon="mostrarSenha ? 'visibility_off' : 'visibility'" :aria-label="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'" @click="mostrarSenha = !mostrarSenha"/>
                                         </template>
                                 </q-input>
 
                                 <label for="cadastro-confirma-password" class="text-[11px] mt-2 font-medium text-gray-600"> Confirmar senha </label>
-                                <q-input v-model="confirmaSenha" for="cadastro-confirma-password" maxlength="128" :type="mostrarConfirmaSenha ? 'text' : 'password'" autocomplete="current-password" outlined dense input-class="text-[12px]">
+                                <q-input v-model="confirmaSenha" tabindex="5" for="cadastro-confirma-password" maxlength="128" :type="mostrarConfirmaSenha ? 'text' : 'password'" autocomplete="current-password" outlined dense input-class="text-[12px]">
                                         <template #append>
                                                 <q-btn flat round dense size="xs" tabindex="-1" class="text-gray-400" :icon="mostrarConfirmaSenha ? 'visibility_off' : 'visibility'" :aria-label="mostrarConfirmaSenha ? 'Ocultar senha' : 'Mostrar senha'" @click="mostrarConfirmaSenha = !mostrarConfirmaSenha"/>
                                         </template>
                                 </q-input>
                                 
-                                <q-btn :loading="carregando" type="submit" label="Cadastrar" color="primary" text-color="white" unelevated no-caps class="mt-4 h-10 w-full py-1.5 text-caption font-medium"/>
+                                <q-btn :loading="carregando" tabindex="6" type="submit" label="Cadastrar" color="primary" text-color="white" unelevated no-caps class="mt-4 h-10 w-full py-1.5 text-caption font-medium"/>
                         </q-form>
 
                         <p class="mt-3 text-center text-xs text-gray-500 dark:text-gray-400">
                                 Já possui uma conta? 
-                                <router-link :to="{ name: 'conectar' }" class="text-primary font-medium no-underline hover:underline dark:text-white">
+                                <router-link :to="{ name: 'conectar' }" tabindex="7" class="text-primary font-medium no-underline hover:underline dark:text-white">
                                         Conecte-se
                                 </router-link>
                         </p>
@@ -91,7 +91,6 @@
         const iconeDisponibilidade = computed(() => disponivel.value === null ? 'search' : disponivel.value ? 'check_circle' : 'cancel');
         const corDisponibilidade = computed(() => disponivel.value === null ? 'text-gray-400' : disponivel.value ? 'text-positive' : 'text-negative');
 
-        // O @ é só visual (prefix do input); se a pessoa digitar, removemos. Espaços também não são aceitos
         watch(usuario, (valor) => {
                 const limpo = valor.replace(/^@+/, '').replace(/\s/g, '');
                 if (limpo !== valor) usuario.value = limpo;
@@ -184,9 +183,6 @@
                         await http.post('/autenticacao/cadastro', { email: email.value, usuario: usuario.value.trim(), nome: nome.value.trim(), senha: senha.value })
                         Notify.create({ type: 'positive', message: 'Cadastrado com sucesso. Conecte-se para prosseguir'})
                         await router.push({ name: 'conectar' })
-                }
-                catch (error) {
-                        erro(error instanceof Error ? error.message : "Erro ao se cadastrar")
                 }
                 finally {
                         carregando.value = false 
