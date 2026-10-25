@@ -26,13 +26,20 @@ export class AuthRepository {
         }
 
         async criar(dados: Pick<Usuario, "usuario" | "nome" | "email" | "senha">): Promise<UsuarioCriado> {
-                const usuario = await this.db.consultarUm<UsuarioCriado>(`
-                                INSERT INTO Usuarios (usuario, nome, email, senha)
-                                OUTPUT INSERTED.id, INSERTED.usuario, INSERTED.nome, INSERTED.email
-                                VALUES (@usuario, @nome, @email, @senha)
-                        `, dados
-                );
+                return this.db.transacao(async (transacao) => {
+                        const usuario = await this.db.consultarUm<UsuarioCriado>(`
+                                        INSERT INTO Usuarios (usuario, nome, email, senha)
+                                        OUTPUT INSERTED.id, INSERTED.usuario, INSERTED.nome, INSERTED.email
+                                        VALUES (@usuario, @nome, @email, @senha)
+                                `, dados, transacao
+                        );
 
-                return usuario!;
+                        await this.db.executar(`
+                                        INSERT INTO UsuariosPerfil (idUsuario) VALUES (@idUsuario)
+                                `, { idUsuario: usuario!.id }, transacao
+                        );
+
+                        return usuario!;
+                });
         }
 }

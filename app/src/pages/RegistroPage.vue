@@ -19,7 +19,6 @@
                                                 <q-btn flat round dense size="xs" tabindex="-1" :loading="verificando" :class="corDisponibilidade" :icon="iconeDisponibilidade" aria-label="Verificar disponibilidade do usuário" @click="verificarUsuario"/>
                                         </template>
                                 </q-input>
-
                                 <span v-if="disponivel !== null" class="text-[11px] mt-1" :class="disponivel ? 'text-positive' : 'text-negative'">
                                         {{ disponivel ? 'Usuário disponível' : 'Usuário já está em uso' }}
                                 </span>
@@ -92,6 +91,7 @@
         const iconeDisponibilidade = computed(() => disponivel.value === null ? 'search' : disponivel.value ? 'check_circle' : 'cancel');
         const corDisponibilidade = computed(() => disponivel.value === null ? 'text-gray-400' : disponivel.value ? 'text-positive' : 'text-negative');
 
+        // O @ é só visual (prefix do input); se a pessoa digitar, removemos. Espaços também não são aceitos
         watch(usuario, (valor) => {
                 const limpo = valor.replace(/^@+/, '').replace(/\s/g, '');
                 if (limpo !== valor) usuario.value = limpo;

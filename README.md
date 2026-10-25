@@ -1,2 +1,2 @@
 # Ecco
-Sistema de agendamento para aprendizado de design patterns e aplicações arquiteturais.
+Rede social para aprendizado de design patterns e aplicações arquiteturais.
